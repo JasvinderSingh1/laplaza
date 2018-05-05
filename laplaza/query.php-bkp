@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<?php
+$servername = "166.62.28.96";
+$username = "tutuorwpdb";
+$password = "tutorwpdb@321!";
+$dbname = "tutorwpdb";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT *
+FROM booking AS A
+    INNER JOIN rooms AS C
+    ON C.room_no = A.room_no
+	where check_in_date >= '10/13/2017'";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "<br> Booking id: ". $row["book_id"]. "<br> id: ". $row["id"]. " - Name: ". $row["r_name"]. " " . $row["room_no"] . "<br>";
+    }
+} else {
+    echo "0 results";
+}
+
+$conn->close();
+?>
+
+</body>
+</html>
+
